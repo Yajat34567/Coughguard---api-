@@ -1,0 +1,21 @@
+from flask import Flask, request, jsonify
+import random
+
+app = Flask(__name__)
+
+@app.route('/analyze', methods=['POST'])
+def analyze_cough():
+    if 'audio' not in request.files:
+        return jsonify({'error': 'No audio file uploaded'}), 400
+
+    # Simulate report (placeholder)
+    result = {
+        "status": "Success",
+        "diagnosis": random.choice(["Dry Cough", "Wet Cough", "No Cough Detected"]),
+        "confidence": str(random.randint(60, 95)) + "%",
+        "advice": "Drink warm fluids. If cough continues, consult a doctor."
+    }
+    return jsonify(result)
+
+if __name__ == '__main__':
+    app.run(debug=True)
